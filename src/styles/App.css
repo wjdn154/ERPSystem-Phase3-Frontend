@@ -1,0 +1,611 @@
+#root {
+  width: 100%;
+}
+
+* {
+}
+
+/* 사이드바 영역 시작 */
+
+/*!* 서브 메뉴 배경색 변경 *!*/
+/*.custom-sidebar .ant-menu-submenu-title {*/
+/*  border-radius: 0px;*/
+/*  margin: 0px;*/
+/*  background-color: #fff !important; !* 서브 메뉴 배경색 *!*/
+/*}*/
+
+.ant-menu {
+  scrollbar-width: none !important;
+}
+.custom-sidebar {
+  width: 70px !important; /* 기본 너비 */
+  flex: auto !important;
+  min-width: 70px !important;
+  max-width: 70px !important;
+  /*min-width: 300px !important;*/
+  /*max-width: 300px !important;*/
+  /*background-color: #fff !important;*/
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 4px -1px;
+}
+
+/* 사이드바를 호버했을 때 */
+.custom-sidebar:hover {
+  width: 300px !important; /* 호버 시 확장된 너비 */
+  min-width: 300px !important;
+  max-width: 300px !important;
+}
+
+.ant-menu-submenu-title:hover, .ant-menu-item:hover {
+  background-color: #1677FF !important;
+}
+
+/*.ant-menu-submenu {*/
+/*  background-color: #fff !important;*/
+/*}*/
+
+.ant-menu-item {
+  width: 100% !important;
+  margin: 0px !important;
+  border-radius: 0px !important;
+}
+.ant-menu-submenu-title {
+  width: 100% !important;
+  margin: 0px !important;
+  border-radius: 0px !important;
+}
+
+/*.ant-menu-submenu-selected > .ant-menu-submenu-title {*/
+/*  font-weight: 700;*/
+/*  background-color: #EBF1FE !important;*/
+/*}*/
+
+.ant-menu-selected, .ant-menu-item-selected {
+  font-weight: 700;
+  background-color: #1677FF !important; /* 선택된 항목의 배경색 */
+  border-right: 3px solid #fff;
+}
+
+/*.ant-menu-submenu-title {*/
+/*  width: 100% !important;*/
+/*}*/
+
+.custom-sidebar .ant-menu-submenu-arrow {
+  display: none;
+  transition: display 0.3s ease;
+}
+
+/* 서브메뉴 중 하나라도 호버되었을 때 모든 화살표 표시 */
+.custom-sidebar:hover .ant-menu-submenu-arrow {
+  display: block;
+  transition: display 0.3s ease;
+}
+
+/* 아이콘 크기 조정 */
+.ant-menu-item-icon {
+  font-size: 20px !important;
+}
+
+.ant-layout-sider-children > .MuiBox-root .ant-typography {
+  cursor: pointer;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* 사이드바 영역 끝 */
+
+/* 웰컴 섹션 시작 */
+.welcome-section-description > p > span {
+  color: #1677FF;
+  font-weight: 700;
+}
+/* 웰컴 섹션 끝 */
+
+/* Tabs 영역 시작 */
+
+/* Tabs 하단의 흰색 경계선 제거 */
+.ant-tabs-nav::before {
+  border-bottom: none !important; /* 하단 흰색 경계선 제거 */
+}
+/* Tabs 글자색 설정 */
+.ant-tabs-tab-btn {
+  color: gray !important;
+  font-weight: 600;
+}
+
+/* 선택된 탭 */
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #1677FF !important;
+  font-weight: 700;
+}
+.ant-tabs-ink-bar {
+  background-color: #1677FF !important;
+}
+
+.ant-tabs-tabpane-active > p {
+  color: #000 !important;
+}
+
+/* Tabs 영역 끝*/
+
+
+/* Form 영역 시작 */
+
+.search-input {
+  font-size: 0.8rem;
+}
+
+.search-input:hover {
+  border-left: 1px solid #4096FF !important;
+}
+
+input.ant-input[readonly] {
+  background-color: #FAFAFA !important;
+  pointer-events: none;
+}
+
+.read-only-input {
+  background-color: #FFF !important;
+}
+
+.input-field {
+  outline: none !important;
+  pointer-events: none;
+  box-shadow: none !important;
+}
+.input-wrapper:hover {
+  /* 포인터 커서 유지 */
+  cursor: pointer !important;
+}
+
+.ant-select-arrow  > span > svg{
+  width: 18px !important;
+  height: 18px !important;
+  margin-right: 5px;
+}
+
+.custom-select > div > div {
+  border-radius: 0 !important;
+}
+
+.ant-select-selector, .ant-select {
+}
+
+.ant-select-arrow {
+}
+
+.ant-select-dropdown {
+}
+.ant-select-selection-item {
+}
+
+.ant-select-focused .ant-select-selector {
+}
+
+/* 드롭다운 항목의 스타일 */
+.ant-select-item {
+}
+
+/* 항목에 마우스를 올렸을 때의 스타일 */
+.ant-select-item-option-active {
+}
+
+/* 항목이 선택되었을 때의 스타일 */
+.ant-select-item-option-selected {
+}
+
+/* Form 영역 끝 */
+
+ /*antd 테이블 영역 시작 */
+
+/* 모든 테이블 제목에 적용 */
+.child-table-row {
+    background-color: red !important;
+}
+
+.highlight-row {
+  background-color: #e6f7ff !important;
+}
+
+.ant-table-cell-fix-left {
+  background-color: #F7F7F7 !important;
+  border-right: 1px solid #e8e8e8 !important;
+}
+
+.summary-row .ant-table-cell {
+  background-color: #F7F7F7;
+}
+
+.summary-row-level-1 {
+  background-color: #F7F7F7;
+}
+.summary-row-level-2 {
+  background-color: #F7F7F7;
+}
+.summary-row-level-3 {
+  background-color: #F7F7F7;
+}
+
+
+
+.title-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.small-text {
+  font-size: 0.8rem;
+}
+
+.medium-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.large-text {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.ant-table-thead th {
+}
+
+/* 테이블의 두 줄 제목 설정 */
+.ant-table-thead th .title-multi-line {
+}
+
+.MuiTableCell-root {
+}
+.ant-table-wrapper {
+}
+.ant-table * {
+}
+
+.ant-table-cell > span, .ant-table-row {
+}
+.ant-table-cell {
+}
+.ant-table-thead > tr > th {
+}
+
+.ant-table-tbody > tr.ant-table-row-selected > td {
+}
+.ant-radio-wrapper {
+}
+
+.ant-table tbody tr:hover td {
+}
+
+.table-header-span {
+}
+.table-span {
+}
+
+.red-text > td{
+}
+.ant-pagination {
+}
+.ant-pagination-prev, .ant-pagination-next {
+  width: 30px !important;
+  height: 30px !important;
+}
+.ant-pagination-item {
+  margin-right: 3px !important;
+  width: 30px !important;
+  height: 30px !important;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+.ant-pagination-prev > button > span,
+.ant-pagination-next > button > span {
+}
+
+
+.ant-pagination-item:hover {
+}
+.ant-pagination-item:hover a {
+}
+
+.ant-pagination-item-active {
+}
+.ant-pagination-item-active > a {
+}
+
+.ant-pagination-jump-prev, .ant-pagination-jump-next {
+    margin-right: 3px !important;
+}
+.ant-pagination-jump-prev:hover,
+.ant-pagination-jump-next:hover {
+}
+.ant-pagination-jump-prev:hover > a > div > span,
+.ant-pagination-jump-next:hover > a > div > span {
+}
+.ant-pagination-jump-prev > a > div > span,
+.ant-pagination-jump-next > a > div > span {
+}
+
+/* 테이블 영역 끝 */
+
+
+
+/* 버튼 영역 시작  */
+.ant-btn-primary {
+  outline: none !important;
+  background-color: #3F87F5 !important;
+}
+.ant-btn-primary > span {
+}
+
+.ant-btn-primary:hover {
+}
+
+.ant-btn-danger {
+  background-color: #F7614E !important;
+  border-color: #F7614E !important;
+  color: #fff;
+  outline: none !important;
+}
+.ant-btn-danger > span {
+}
+
+.ant-btn-danger:hover {
+  background-color: rgba(247, 97, 78, 0.85) !important;
+}
+.ant-btn-danger:hover > span {
+}
+/* 버튼 영역 끝  */
+
+
+/* 드롭다운 영역 시작 */
+
+/* 공통 드롭다운 스타일 */
+.notification-dropdown {
+  width: 30vw;
+  min-width: 400px;
+  max-width: 450px;
+  max-height: 80vh;
+  overflow-y: auto; /* 스크롤 활성화 */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.ant-list-item-meta:hover {
+  transform: scale(1.02);
+}
+
+.ant-list-item-meta {
+  margin: 15px;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.ant-avatar-icon {
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+/* 개별 알림 항목 스타일 */
+.notification-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.notification-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* 읽지 않은 알림 제목 스타일 */
+.notification-item.unread .notification-title {
+  font-weight: 700;
+  color: #333;
+}
+
+/* 읽은 알림 제목 스타일 */
+.notification-item.read .notification-title {
+  font-weight: 400;
+  color: #999;
+}
+
+/* 알림 본문 스타일 */
+.notification-content {
+  color: #555;
+  margin-bottom: 4px;
+}
+
+/* 알림 타임스탬프 */
+.notification-timestamp {
+  font-size: 12px;
+  color: #999;
+  text-align: right;
+}
+
+/* 알림이 없을 때 표시될 텍스트 */
+.no-notifications {
+  text-align: center;
+  padding: 20px 0;
+  color: #999;
+}
+/* 드롭다운 영역 끝 */
+
+
+
+
+
+
+
+
+
+
+
+/**
+ 글자색 : #CFDFE1
+.background-color-header {
+  background-color: #fff;
+}
+.background-color-sidebar {
+  background-color: #fff;
+}
+.background-color-content {
+  background-color: #fff;
+}
+.background-color-sidebar-selected {
+  background-color: #fff !important;
+}
+ */
+
+/* 그리드 영역 시작 */
+.MuiGrid-item {
+  padding-left: 10px !important
+}
+
+/* 그리드 영역 끝 */
+
+
+
+
+
+
+
+
+
+
+/* Paper 영역 시작 */
+.MuiPaper-root {
+}
+
+/* Paper 영역 끝 */
+
+
+/* Divider 영역 시작 */
+.MuiDivider-root {
+ background-color: #fff;
+}
+.ant-divider {
+  background-color: #fff;
+}
+
+/* Divider 영역 끝 */
+
+
+
+/* Ant Modal 영역 시작 */
+/*.ant-modal-content {*/
+/*  background-color: #fff !important;*/
+/*  border: none !important;*/
+/*  border-radius: 1px !important;*/
+/*  color: #000 !important;*/
+/*}*/
+/*.ant-modal-close > span {*/
+/*  color: #000 !important;*/
+/*}*/
+
+/*.ant-modal-body > .ant-divider {*/
+/*  background-color: #fff;*/
+/*}*/
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-table > .ant-table-container > .ant-table-content > table > .ant-table-thead > tr > .ant-table-cell {*/
+/*  background-color: #fff !important;*/
+/*  border-bottom: 1px solid #000 !important;*/
+/*  border-radius: 1px;*/
+/*}*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-table > .ant-table-container > .ant-table-content > table > .ant-table-thead > tr > .ant-table-cell > span {*/
+/*  color: #000 !important;*/
+/*  background-color: #fff !important;*/
+/*}*/
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-table > .ant-table-container > .ant-table-content > table > .ant-table-tbody > tr > .ant-table-cell {*/
+/*  color: #000 !important;*/
+/*  background-color: #fff !important;*/
+/*  border-bottom: 1px solid #000 !important;*/
+/*}*/
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-table tbody tr:hover td {*/
+/*  background-color: #fff !important;*/
+/*}*/
+
+
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-prev,*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-next{*/
+/*  background-color: #fff;*/
+/*  border: 1px solid #000 !important;*/
+/*}*/
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-prev > button > span,*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-next > button > span {*/
+/*  color: #000 !important;*/
+/*}*/
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-item {*/
+/*  background-color: #fff !important;*/
+/*  border: 1px solid #000 !important;*/
+/*}*/
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-item > a {*/
+/*  color: #000 !important;*/
+/*}*/
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-item:hover {*/
+/*  background-color: #fff !important;*/
+/*  border: 2px solid #000 !important;*/
+/*}*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-item:hover a {*/
+/*  color: #000 !important;*/
+/*}*/
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-item-active {*/
+/*  background-color: #fff !important;*/
+/*  border: 2px solid #000 !important;*/
+/*}*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-item-active > a {*/
+/*  color: #000 !important;*/
+/*}*/
+
+
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-jump-prev,*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-jump-next {*/
+/*  background-color: #fff;*/
+/*  border: 2px solid #000 !important;*/
+/*}*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-jump-prev:hover,*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-jump-next:hover {*/
+/*    background-color: #fff !important;*/
+/*    border: 2px solid #000 !important;*/
+/*}*/
+
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-jump-prev:hover > a > div > span,*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-jump-next:hover > a > div > span {*/
+/*  color: #000 !important;*/
+/*}*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-jump-prev > a > div > span,*/
+/*.ant-modal-body > .ant-table-wrapper > .ant-spin-nested-loading > .ant-spin-container > .ant-pagination > .ant-pagination-jump-next > a > div > span {*/
+/*  color: #000 !important;*/
+/*}*/
+
+
+/* Ant Modal 영역 끝 */
+
+/* Ant Typography 영역 시작 */
+.ant-typography {
+  color: #000 !important;
+}
+/* Ant Typography 영역 끝 */
+
+
+/* Card 영역 */
+.purple-card {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: none !important;
+  border-radius: 10px !important;
+}
+.blue-card {
+  background-color: #fff !important;
+  color: #000 !important;
+  border: none !important;
+  border-radius: 10px !important;
+}
+/* Card 영역 끝 */
