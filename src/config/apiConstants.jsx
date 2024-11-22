@@ -1,9 +1,11 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
 
-export const API_BASE_URL = process.env.NODE_ENV === 'production'
-    ? "https://omz-erp.click" // 운영 환경
-    : "http://localhost:8080"; // 개발 환경
+// export const API_BASE_URL = process.env.NODE_ENV === 'production'
+//     ? "https://omz-erp.click" // 운영 환경
+//     : "http://localhost:8080"; // 개발 환경
+
+export const API_BASE_URL = ''; // 로컬 개발 환경
 
 // 공통
 export const COMMON_API = {
