@@ -480,8 +480,8 @@ const PurchasePage = ({initialData}) => {
                     setDisplayValues({});
 
                     type === 'update'
-                        ? notify('success', '발주서 수정', '발주서 정보 수정 성공.', 'bottomRight')
-                        : notify('success', '발주서 저장', '발주서 정보 저장 성공.', 'bottomRight');
+                        ? notify('success', '구매서 수정', '구매서 정보 수정 성공.', 'bottomRight')
+                        : notify('success', '구매서 저장', '구매서 정보 저장 성공.', 'bottomRight');
                 } catch (error) {
                     console.error('Error saving data:', error); // 오류 로그 출력
                     notify('error', '저장 실패', '데이터 저장 중 오류가 발생했습니다.', 'top');
