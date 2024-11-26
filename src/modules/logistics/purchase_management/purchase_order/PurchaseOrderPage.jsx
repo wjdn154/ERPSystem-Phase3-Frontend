@@ -1173,7 +1173,7 @@ const PurchaseOrderPage = ({initialData}) => {
                                     onFinish={(values) => { handleFormSubmit(values, 'register') }}
                                 >
                                     {/* 발주서 정보 */}
-                                    <Divider orientation={'left'} orientationMargin="0" style={{ marginTop: '0px', fontWeight: 600 }}>구매서 정보</Divider>
+                                    <Divider orientation={'left'} orientationMargin="0" style={{ marginTop: '0px', fontWeight: 600 }}>발주서 정보</Divider>
                                     <Row align="middle" gutter={16} style={{ marginBottom: '16px' }}>
                                         <Col>
                                             <Typography>입력 일자</Typography>
