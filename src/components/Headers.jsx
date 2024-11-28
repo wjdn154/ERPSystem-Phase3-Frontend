@@ -40,59 +40,44 @@ function Headers() {
                         setPermissionLevel(response.data.permission);
 
                         const createEventSource = () => {
-                            let reconnectAttempts = 0; // 재연결 시도 횟수
-                            let reconnectInterval = 1000; // 초기 재연결 간격 (1초)
+                            eventSourceRef.current = new EventSource(COMMON_API.NOTIFICATION_SUBSCRIBE_API(
+                                decodedToken.employeeId,
+                                decodedToken["X-Tenant-ID"],
+                                response.data.module,
+                                response.data.permission
+                            ));
 
-                            const connect = () => {
-                                eventSourceRef.current = new EventSource(COMMON_API.NOTIFICATION_SUBSCRIBE_API(
-                                    decodedToken.employeeId,
-                                    decodedToken["X-Tenant-ID"],
-                                    module,
-                                    permissionLevel
-                                ));
+                            eventSourceRef.current.addEventListener("subscribe", async (event) => {
+                                console.log("SSE 구독 성공:", event.data);
+                                try {
+                                    const response2 = await apiClient.post(COMMON_API.CREATE_NOTIFICATION_API(decodedToken.employeeId, response.data.module, response.data.permission));
+                                    setNotificationItems(response2.data);
+                                    setUnreadCount(response2.data.filter((item) => !item.readStatus).length);
+                                } catch (error) {
+                                    console.error("알림 목록 조회 에러:", error);
+                                }
+                            });
 
-                                eventSourceRef.current.addEventListener("subscribe", async (event) => {
-                                    console.log("SSE 구독 성공:", event.data);
+                            eventSourceRef.current.addEventListener("notification", async (event) => {
+                                notify('info', "알림", event.data, 'topRight');
+                                setTimeout(async () => {
                                     try {
-                                        const response2 = await apiClient.post(COMMON_API.CREATE_NOTIFICATION_API(decodedToken.employeeId, module, permissionLevel));
+                                        const response2 = await apiClient.post(COMMON_API.CREATE_NOTIFICATION_API(decodedToken.employeeId, response.data.module, response.data.permission));
                                         setNotificationItems(response2.data);
                                         setUnreadCount(response2.data.filter((item) => !item.readStatus).length);
-                                        reconnectAttempts = 0; // 성공하면 재연결 시도 횟수 초기화
-                                        reconnectInterval = 1000; // 재연결 간격 초기화
                                     } catch (error) {
-                                        console.error("알림 목록 조회 에러:", error);
+                                        console.error("알림 생성 에러:", error);
                                     }
-                                });
+                                }, 300);  // 300ms 지연
+                            });
 
-                                eventSourceRef.current.addEventListener("notification", async (event) => {
-                                    notify('info', "알림", event.data, 'topRight');
-                                    setTimeout(async () => {
-                                        try {
-                                            const response2 = await apiClient.post(COMMON_API.CREATE_NOTIFICATION_API(decodedToken.employeeId, module, permissionLevel));
-                                            setNotificationItems(response2.data);
-                                            setUnreadCount(response2.data.filter((item) => !item.readStatus).length);
-                                        } catch (error) {
-                                            console.error("알림 생성 에러:", error);
-                                        }
-                                    }, 300);
-                                });
+                            eventSourceRef.current.onerror = (error) => {
+                                eventSourceRef.current.close();
+                                eventSourceRef.current = null;
 
-                                eventSourceRef.current.onerror = () => {
-                                    console.error("SSE 연결 끊김. 재연결 시도 중...");
-                                    eventSourceRef.current.close();
-                                    eventSourceRef.current = null;
-
-                                    if (reconnectAttempts < 10) { // 최대 10회 재연결 시도
-                                        reconnectAttempts++;
-                                        reconnectInterval = Math.min(reconnectInterval * 2, 30000); // 재연결 간격을 최대 30초로 제한
-                                        setTimeout(connect, reconnectInterval);
-                                    } else {
-                                        notify('error', "알림", "서버와의 연결이 불안정합니다. 관리자에게 문의하세요.", 'topRight');
-                                    }
-                                };
+                                // 일정 시간 후 재연결 시도
+                                setTimeout(createEventSource, 1000);  // 1초 후 재연결
                             };
-
-                            connect();
                         };
 
                         createEventSource();
