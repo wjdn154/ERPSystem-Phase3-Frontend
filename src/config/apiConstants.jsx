@@ -16,8 +16,8 @@ export const COMMON_API = {
     REGISTER_API: `${API_BASE_URL}/api/common/auth/register`, // 회원가입 API
     DASHBOARD_API: `${API_BASE_URL}/api/integrated/dashboard`, // 대시보드 조회 API
     GET_USER_SUBSCRIPTION_INFO_API: (employeeId, isAdmin) => `${API_BASE_URL}/api/notifications/get-user-subscription-info?employeeId=${employeeId}&isAdmin=${isAdmin}`, // 사용자 구독 정보 조회 API
-    NOTIFICATION_SUBSCRIBE_API: (employeeId, tenantId, module, permission) => `${API_BASE_URL}/api/notifications/subscribe?employeeId=${employeeId}&tenantId=${tenantId}&module=${module}&permission=${permission}`, // 알림 구독 API
-    NOTIFICATION_UNSUBSCRIBE_API: `${API_BASE_URL}/api/notifications/unsubscribe`, // 알림 구독 취소 API
+    NOTIFICATION_SUBSCRIBE_API: (employeeId, tenantId, module, permission, uuid) => `${API_BASE_URL}/api/notifications/subscribe?employeeId=${employeeId}&tenantId=${tenantId}&module=${module}&permission=${permission}&uuid=${uuid}`, // 알림 구독 API
+    NOTIFICATION_UNSUBSCRIBE_API: (employeeId,uuid) => `${API_BASE_URL}/api/notifications/unsubscribe?employeeId=${employeeId}&uuid=${uuid}`, // 알림 구독 취소 API
     CREATE_NOTIFICATION_API: (employeeId, module, permission) => `${API_BASE_URL}/api/notifications/create-notification?employeeId=${employeeId}&module=${module}&permission=${permission}`, // 알림 생성 및 조회 API
     MARK_AS_READ_NOTIFICATION_API: (employeeId, notificationId) => `${API_BASE_URL}/api/notifications/mark-as-read?employeeId=${employeeId}&notificationId=${notificationId}`, // 알림 읽음 처리 API
 };
