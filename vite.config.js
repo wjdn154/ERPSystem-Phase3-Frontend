@@ -15,11 +15,7 @@ export default defineConfig({
         changeOrigin: true,
       },
       '/api/notifications': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-      },
-      '/api/integrated': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:8082',
         changeOrigin: true,
       },
       '/api/logistics': {
@@ -28,6 +24,10 @@ export default defineConfig({
       },
       '/api/production': {
         target: 'http://localhost:8081',
+        changeOrigin: true,
+      },
+      '/api/common': {
+        target: 'http://localhost:8082',
         changeOrigin: true,
       },
     }

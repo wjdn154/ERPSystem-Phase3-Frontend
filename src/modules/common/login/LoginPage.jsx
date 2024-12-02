@@ -38,6 +38,7 @@ const LoginPage = () => {
     const fetchInitialCompanyOptions = async () => {
         try {
             const response = await apiClient.post(COMMON_API.COMPANY_LIST_API);
+            console.log(COMMON_API.COMPANY_LIST_API);
             return response.data.map((company) => ({
                 label: company.name,
                 value: company.id
@@ -84,6 +85,7 @@ const LoginPage = () => {
             const response = await apiClient.post(COMMON_API.LOGIN_API, formData);
             // 서버로부터 토큰과 권한 정보를 받아옴
             const { token, permission, isAdmin } = response.data;
+            console.log(token);
             // JWT 토큰을 쿠키에 저장 (만료 기간 1일)
             Cookies.set('jwt', token, { expires: 1 });
             Cookies.set('refreshToken', token, { expires: 7 });
