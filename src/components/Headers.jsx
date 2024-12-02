@@ -33,8 +33,6 @@ function Headers() {
             return existingUuid;
         }
         const newUuid = v4();
-        console.log("newUUID");
-        console.log(newUuid);
         sessionStorage.setItem('sse_uuid', newUuid);
         return newUuid;
     });
@@ -129,7 +127,6 @@ function Headers() {
 
             const initializeSSE = async () => {
                 try {
-                    console.log(COMMON_API.GET_USER_SUBSCRIPTION_INFO_API);
                     const response = await apiClient.post(COMMON_API.GET_USER_SUBSCRIPTION_INFO_API(decodedToken.employeeId, isAdmin));
 
                     if (response) {

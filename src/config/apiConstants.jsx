@@ -14,7 +14,7 @@ export const COMMON_API = {
     COMPANY_LIST_API: `${API_BASE_URL}/api/common/company/`, // 회사 목록 조회 API
     COMPANY_SEARCH_API: `${API_BASE_URL}/api/common/company/search`, // 회사 검색 API
     REGISTER_API: `${API_BASE_URL}/api/common/auth/register`, // 회원가입 API
-    DASHBOARD_API: `${API_BASE_URL}/api/integrated/dashboard`, // 대시보드 조회 API
+    DASHBOARD_API: `${API_BASE_URL}/api/common/dashboard`, // 대시보드 조회 API
     GET_USER_SUBSCRIPTION_INFO_API: (employeeId, isAdmin) => `${API_BASE_URL}/api/notifications/get-user-subscription-info?employeeId=${employeeId}&isAdmin=${isAdmin}`, // 사용자 구독 정보 조회 API
     NOTIFICATION_SUBSCRIBE_API: (employeeId, tenantId, module, permission, uuid) => `${API_BASE_URL}/api/notifications/subscribe?employeeId=${employeeId}&tenantId=${tenantId}&module=${module}&permission=${permission}&uuid=${uuid}`, // 알림 구독 API
     NOTIFICATION_UNSUBSCRIBE_API: (employeeId,uuid) => `${API_BASE_URL}/api/notifications/unsubscribe?employeeId=${employeeId}&uuid=${uuid}`, // 알림 구독 취소 API
