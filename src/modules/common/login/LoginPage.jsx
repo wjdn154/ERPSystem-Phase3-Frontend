@@ -13,6 +13,7 @@ import {useNotificationContext} from "../../../config/NotificationContext.jsx";
 import apiClient from "../../../config/apiClient.jsx";
 import {jwtDecode} from "jwt-decode";
 
+
 const LoginPage = () => {
     const notify = useNotificationContext();
     const location = useLocation();
@@ -96,6 +97,27 @@ const LoginPage = () => {
             notify('error', '로그인 실패', error.response.data, 'top');
         }
     };
+
+    // Google 로그인 URL 생성
+    const handleGoogleLogin = () => {
+        console.log('Google 로그인 버튼 클릭됨');
+        const domain = "ap-northeast-2dwcymwq0b.auth.ap-northeast-2.amazoncognito.com";
+        const clientId = "7aftsthsr58mjtcjk7tp00to1l";
+        const redirectUri = "http://localhost:3000/callback";
+        const responseType = "code";
+        const scope = "email openid profile";
+
+        const googleLoginUrl = `
+        https://${domain}/oauth2/authorize?client_id=${clientId}&response_type=${responseType}&scope=${scope}&redirect_uri=${encodeURIComponent(
+            redirectUri
+        )}
+        `;
+
+        console.log('Google 로그인 URL:', googleLoginUrl);
+        window.location.href = googleLoginUrl;
+    };
+
+
 
     return (
         <>
@@ -195,6 +217,23 @@ const LoginPage = () => {
                                     </Button>
                                 </Box>
                             </form>
+                            {/* Google 로그인 버튼 추가 */}
+                            <Box mt={4} textAlign="center">
+                                <Button
+                                    type="primary"
+                                    onClick={handleGoogleLogin}
+                                    style={{
+                                        marginTop: '10px',
+                                        backgroundColor: '#4285F4',
+                                        color: '#fff',
+                                        width: '100%',
+                                        height: '45px',
+                                    }}
+                                >
+                                    Google로 로그인
+                                </Button>
+                            </Box>
+
                         </Box>
                     </Box>
                 </Grid>

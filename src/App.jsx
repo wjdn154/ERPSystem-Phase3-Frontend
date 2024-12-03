@@ -22,6 +22,8 @@ import { jwtDecode } from "jwt-decode";
 import UnauthorizedPage from "./modules/common/unauthorized/UnauthorizedPage.jsx";
 import {COMMON_API} from "./config/apiConstants.jsx";
 import apiClient from "./config/apiClient.jsx";
+import AuthCallback from "./modules/common/login/AuthCallback.jsx";
+import CompanySelectionPage from "./modules/common/login/CompanySelectionPage.jsx";
 
 const { Sider, Content } = Layout;
 const theme = createTheme(themeSettings);
@@ -99,6 +101,8 @@ const AppContent = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="*" element={<Navigate to="/login" replace />} />
+                <Route path="/callback" element={<AuthCallback />} />
+                <Route path="/company-selection" element={<CompanySelectionPage/>}/>
             </Routes>
         );
     }
@@ -109,6 +113,8 @@ const AppContent = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/unauthorized" element={<UnauthorizedPage />} />
+                <Route path="/callback" element={<AuthCallback />} />
+                <Route path="/company-selection" element={<CompanySelectionPage/>}/>
                 {/* 로그인 후에는 메인 레이아웃으로 이동 */}
                 <Route
                     path="/*"
