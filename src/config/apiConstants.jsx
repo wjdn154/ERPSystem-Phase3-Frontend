@@ -36,7 +36,8 @@ export const FINANCIAL_API = {
     SAVE_MEMO_API: (code) => `${API_BASE_URL}/api/financial/accountSubjects/saveMemo/${code}`, // 적요 저장 API
 
     // 거래처 관련 API
-    CLIENT_SEARCH_API: `${API_BASE_URL}/api/financial/client/search`, // 거래처 검색 API
+    // CLIENT_SEARCH_API: `${API_BASE_URL}/api/financial/client/search`, // 거래처 검색 API
+    CLIENT_SEARCH_API: `${API_BASE_URL}/api/financial/client/searchClientList`, // 거래처 목록 조회 API
     FETCH_CLIENT_LIST_API: `${API_BASE_URL}/api/financial/client/fetchClientList`, // 거래처 목록 조회 API
     FETCH_CLIENT_API: (id) => `${API_BASE_URL}/api/financial/client/fetchClient/${id}`, // 거래처 조회 API
     SAVE_CLIENT_API: `${API_BASE_URL}/api/financial/client/save`, // 거래처 저장 API

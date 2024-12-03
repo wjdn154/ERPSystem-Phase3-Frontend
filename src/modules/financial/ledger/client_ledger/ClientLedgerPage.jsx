@@ -113,6 +113,7 @@ const ClientLedgerPage = () => {
             return;
         }
 
+        console.log(searchParams);
 
         try {
             const response = await apiClient.post(FINANCIAL_API.CLIENT_LEDGER_API, searchParams);
