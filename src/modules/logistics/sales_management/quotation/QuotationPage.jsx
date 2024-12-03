@@ -141,7 +141,6 @@ const QuotationPage = ({initialData}) => {
             const response = await apiClient.post(LOGISTICS_API.QUOTATION_LIST_API, searchParams);
             const data = response.data;
             setSearchData(data);
-            console.log(data)
 
             notify('success', '조회 성공', '견적서 조회 성공.', 'bottomRight');
         } catch (error) {
@@ -180,7 +179,6 @@ const QuotationPage = ({initialData}) => {
             }
 
             const modalData = Array.isArray(data) ? data : [data];
-            console.log(modalData);
 
             setModalData(modalData);
             setInitialModalData(modalData);
@@ -270,8 +268,6 @@ const QuotationPage = ({initialData}) => {
                 // 제품 선택 시 해당 제품을 상태에 반영
                 const updatedDetails = [...quotationParam.quotationDetails];
 
-                console.log(editingRow)
-
                 // 해당 품목 코드와 이름을 업데이트
                 updateField('productId', record.id, editingRow);
                 updateField('productCode', record.code, editingRow);
@@ -279,9 +275,10 @@ const QuotationPage = ({initialData}) => {
                 updateField('price', record.salesPrice, editingRow);
                 updateField('remarks', record.remarks, editingRow)
 
-                const { quantity } = updatedDetails[editingRow].quantity;
+                const quantity = updatedDetails[editingRow].quantity;
                 const supplyPrice = calculateSupplyPrice(quantity, (record.salesPrice));
-                console.log(supplyPrice)
+
+                console.log(updatedDetails[editingRow])
                 const vat = calculateVat(supplyPrice);
 
 
@@ -366,11 +363,7 @@ const QuotationPage = ({initialData}) => {
 
         const updatedDetails = [...quotationParam.quotationDetails];
 
-        console.log('editingRow: ', editingRow)
-
         updatedDetails[index][fieldName] = value;
-
-        console.log('updatedDetails: ', updatedDetails)
 
         setQuotationParam((prevParams) => ({
             ...prevParams,
@@ -380,7 +373,6 @@ const QuotationPage = ({initialData}) => {
 
     const handleRowSelectionChange = (selectedRowKeys) => {
         setSelectedDetailRowKeys(selectedRowKeys);  // 선택된 행의 키 상태 업데이트
-        console.log('선택된 행 키:', selectedRowKeys);  // 선택된 키 출력
 
     };
 
@@ -403,7 +395,6 @@ const QuotationPage = ({initialData}) => {
     };
 
     const handleDeleteRow = (index) => {
-        console.log(index)
         confirm({
             title: '삭제 확인',
             content: '정말로 삭제하시겠습니까?',
@@ -431,9 +422,6 @@ const QuotationPage = ({initialData}) => {
 
     // 폼 제출 핸들러
     const handleFormSubmit = async (values, type) => {
-        console.log('Form values:', values); // 폼 값 확인
-        console.log('detailQuotation', detailQuotation)
-        console.log('quotationParam: ', quotationParam)
         confirm({
             title: '저장 확인',
             content: '정말로 저장하시겠습니까?',
@@ -460,9 +448,6 @@ const QuotationPage = ({initialData}) => {
                         })) : [],  // items가 존재할 경우에만 map 실행, 없으면 빈 배열로 설정
                         remarks: values.remarks
                     };
-                    console.log('quotationData: ', quotationData)
-
-                    console.log('Sending data to API:', quotationData); // API로 전송할 데이터 확인
 
                     const API_PATH = type === 'update' ? LOGISTICS_API.QUOTATION_UPDATE_API(quotationParam.id) : LOGISTICS_API.QUOTATION_CREATE_API;
                     const method = type === 'update' ? 'put' : 'post';
@@ -475,14 +460,12 @@ const QuotationPage = ({initialData}) => {
 
                     const updatedData = response.data;
 
-                    console.log('updatedData: ', updatedData)
 
                     if (type === 'update') {
 
                         setQuotationList((prevList) =>
                             prevList.map((order) => (order.id === updatedData.id ? updatedData : order))
                         );
-                        console.log('quotationList: ',quotationList)
                     } else {
                         setQuotationList((prevList) => [...prevList, updatedData]);
                         registrationForm.resetFields();
@@ -530,14 +513,10 @@ const QuotationPage = ({initialData}) => {
             });
             const vatAmount = response.data;
 
-            console.log('vatAmount: ', vatAmount);
-
-            console.log(quotationParam)
             // quotationDetails가 배열인지 확인하고, index가 유효한지 확인
 
 
            const supplyPrice = quotationParam.quotationDetails[index].supplyPrice = quantity * price;
-            console.log(supplyPrice)
            const vat = quotationParam.quotationDetails[index].vat = vatAmount;
 
 
@@ -567,11 +546,9 @@ const QuotationPage = ({initialData}) => {
     const saveEdit = async (id, event, index) => {
         event.stopPropagation();
 
-        console.log(id);
 
 
         const record = quotationParam.quotationDetails[id];
-        console.log(record)
 
         const quantity = Number(record.quantity);
         const price = record.price;
@@ -788,7 +765,6 @@ const QuotationPage = ({initialData}) => {
                                                 try {
                                                     const response = await apiClient.post(LOGISTICS_API.QUOTATION_DETAIL_API(id));
                                                     setDetailQuotation(response.data);
-                                                    console.log('detailQuotation: ', response.data)
                                                     setQuotationDetails(detailQuotation)
                                                     setEditQuotation(true);
 
