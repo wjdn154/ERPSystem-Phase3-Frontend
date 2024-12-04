@@ -32,6 +32,40 @@ export default function DashboardPage({ initialData }) {
         }));
     }, [initialData]);
 
+    // const S3_JSON_URL = 'http://omz-erp-dashboard-data-bucket.s3-website.ap-northeast-2.amazonaws.com/dashboard-1월.json';
+    const S3_JSON_URL = 'https://https://d3rql2ncmdi6i.cloudfront.net/dashboard-1월.json'; // 클라우드프론트 도메인 사용 'dashboard-latest.json' 으로 파일명 고정
+    // const S3_JSON_URL = 'https://https://d3rql2ncmdi6i.cloudfront.net/dashboard-latest.json'; // 클라우드프론트 도메인 사용 'dashboard-latest.json' 으로 파일명 고정
+
+
+    useEffect(() => {
+        const fetchDashboardData = async () => {
+            try {
+                console.info('s3에서 데이터를 가져오는 중')
+                const response = await fetch(S3_JSON_URL); // S3 JSON 데이터 가져오기
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`); // 에러 처리
+                }
+                const data = await response.json(); // JSON 데이터를 JavaScript 객체로 변환
+                console.log('가져온 데이터: ', data);
+
+                // 상태에 저장
+                setReportData((prevData) => ({
+                    ...prevData,
+                    ...data, // 가져온 데이터를 상태에 병합
+                    environmentalScore: {
+                        ...prevData.environmentalScore,
+                        ...data.environmentalScore,
+                    },
+                }));
+            } catch (error) {
+                console.error('fetchDashboardData 에러 : ', error);
+            }
+        };
+
+        fetchDashboardData();
+    }, [])
+
+
     return (
         <main className="flex-1 overflow-y-auto p-4">
             <div className="max-w-8xl my-10 mx-20">
