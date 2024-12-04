@@ -169,12 +169,13 @@ const QuotationPage = ({initialData}) => {
         if(fieldName === 'warehouseName') apiPath = LOGISTICS_API.WAREHOUSE_LIST_API;
         if(fieldName === 'product') apiPath = LOGISTICS_API.PRODUCT_LIST_API;
         if(fieldName === 'vatType') apiPath = FINANCIAL_API.VAT_TYPE_SEARCH_API;
-
         try {
             const response = await apiClient.post(apiPath);
 
             // 데이터가 문자열이고 JSON 배열 형식일 경우 파싱, 아니면 그대로 배열로 처리
             let data = response.data;
+            console.log("test4");
+            console.log(data);
             if (typeof data === 'string' && data.startsWith('[') && data.endsWith(']')) {
                 data = JSON.parse(data);
             }
@@ -279,10 +280,9 @@ const QuotationPage = ({initialData}) => {
                 updateField('price', record.salesPrice, editingRow);
                 updateField('remarks', record.remarks, editingRow)
 
-                const { quantity } = updatedDetails[editingRow].quantity;
+                const quantity = updatedDetails[editingRow].quantity;
                 const supplyPrice = calculateSupplyPrice(quantity, (record.salesPrice));
-                console.log(supplyPrice)
-                const vat = calculateVat(supplyPrice);
+                // const vat = calculateVat(supplyPrice);
 
 
                 setQuotationParam((prevParams) => ({
@@ -523,6 +523,7 @@ const QuotationPage = ({initialData}) => {
     // API를 사용해 부가세 계산
     const calculateVat = async (quantity, price, vatTypeId, index) => {
         try {
+
             const response = await apiClient.post(FINANCIAL_API.VAT_AMOUNT_QUANTITY_PRICE_API, {
                 vatTypeId,
                 quantity,
@@ -579,6 +580,11 @@ const QuotationPage = ({initialData}) => {
         const vatTypeId = quotationParam.vatType ? quotationParam.vatType.code : quotationParam.vatCode;
 
         if (quantity && price && vatTypeId) {
+            console.log("test2");
+            console.log(quantity);
+            console.log(price);
+            console.log(vatTypeId);
+            console.log(id);
             await calculateVat(quantity, price, vatTypeId, id); // 필요한 데이터로 부가세 계산 API 호출
         } else {
             console.error("필수 데이터가 부족합니다: 수량, 단가, 과세 유형을 입력해주세요.");
