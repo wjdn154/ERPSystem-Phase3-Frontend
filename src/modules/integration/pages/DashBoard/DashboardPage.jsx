@@ -7,8 +7,10 @@ import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturi
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import GroupsIcon from '@mui/icons-material/Groups';
 import {Button} from "antd";
+import apiClient from "../../../../config/apiClient.jsx";
+import axios from "axios";
 
-export default function DashboardPage({ initialData }) {
+export default function DashboardPage() {
     const [reportData, setReportData] = useState({
         environmentalScore: {
             totalScore: 0,
@@ -20,51 +22,67 @@ export default function DashboardPage({ initialData }) {
         widgets: [],
     });
 
+    // useEffect(() => {
+    //     setReportData((prevData) => ({
+    //         ...prevData,
+    //         ...initialData,
+    //         environmentalScore: {
+    //             totalScore: initialData?.environmentalScore?.totalScore ?? prevData.environmentalScore.totalScore,
+    //             wasteScore: initialData?.environmentalScore?.wasteScore ?? prevData.environmentalScore.wasteScore,
+    //             energyScore: initialData?.environmentalScore?.energyScore ?? prevData.environmentalScore.energyScore,
+    //         },
+    //     }));
+    // }, [initialData]);
+
+    // 테스트할 URL 리스트
+    const URLS_TO_TEST = [
+        '/dashboard-latest.json',
+        'https://omz-erp.click/latest-dashboard', // 도메인과 연결된 클라우드프론트 경로 테스트 CORS TypeError: Failed to fetch net::ERR_FAILED 200 (OK)
+        'https://d3rql2ncmdi6i.cloudfront.net/latest-dashboard', // 클라우드프론트 도메인 테스트 404 (Not Found)   HTTP error
+        'https://d3rql2ncmdi6i.cloudfront.net/latest-dashboard/dashboard-latest.json', // 클라우드프론트 경로 올 지정 테스트 CORS TypeError: Failed to fetch
+        'https://d3rql2ncmdi6i.cloudfront.net/dashboard-latest.json', // 클라우드프론트 경로 올 지정 테스트 CORS TypeError: Failed to fetch net::ERR_FAILED 200 (OK)
+        'https://omz-erp-dashboard-data-bucket.s3.ap-northeast-2.amazonaws.com/dashboard-latest.json',
+    ];
+
     useEffect(() => {
-        setReportData((prevData) => ({
-            ...prevData,
-            ...initialData,
-            environmentalScore: {
-                totalScore: initialData?.environmentalScore?.totalScore ?? prevData.environmentalScore.totalScore,
-                wasteScore: initialData?.environmentalScore?.wasteScore ?? prevData.environmentalScore.wasteScore,
-                energyScore: initialData?.environmentalScore?.energyScore ?? prevData.environmentalScore.energyScore,
-            },
-        }));
-    }, [initialData]);
-
-    const S3_JSON_URL = 'http://omz-erp-dashboard-data-bucket.s3-website.ap-northeast-2.amazonaws.com/dashboard-latest.json';
-    // const S3_JSON_URL = 'http://omz-erp-dashboard-data-bucket.s3-website.ap-northeast-2.amazonaws.com/dashboard-1월.json';
-    // const S3_JSON_URL = 'https://https://d3rql2ncmdi6i.cloudfront.net/dashboard-1월.json'; // 클라우드프론트 도메인 사용 'dashboard-latest.json' 으로 파일명 고정
-    // const S3_JSON_URL = 'https://https://d3rql2ncmdi6i.cloudfront.net/dashboard-latest.json'; // 클라우드프론트 도메인 사용 'dashboard-latest.json' 으로 파일명 고정
-
-
-    useEffect(() => {
+        console.log(URLS_TO_TEST)
         const fetchDashboardData = async () => {
-            try {
-                console.info('s3에서 데이터를 가져오는 중')
-                const response = await fetch(S3_JSON_URL); // S3 JSON 데이터 가져오기
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`); // 에러 처리
-                }
-                const data = await response.json(); // JSON 데이터를 JavaScript 객체로 변환
-                console.log('가져온 데이터: ', data);
+            let dataFetched = false;
 
-                // 상태에 저장
-                setReportData((prevData) => ({
-                    ...prevData,
-                    ...data, // 가져온 데이터를 상태에 병합
-                    environmentalScore: {
-                        ...prevData.environmentalScore,
-                        ...data.environmentalScore,
-                    },
-                }));
-            } catch (error) {
-                console.error('fetchDashboardData 에러 : ', error);
+            for (const [index, url] of URLS_TO_TEST.entries()) { // index와 url 가져오기
+                try {
+                    console.info(`(${index + 1}/${URLS_TO_TEST.length}) 대시보드 데이터를 가져오는 중... URL: ${url}`);
+                    const response = await fetch(url);
+                    console.info(response);
+
+                    if (!response.ok) {
+                        console.error(`(${index + 1}/${URLS_TO_TEST.length}) HTTP error (URL: ${url}): ${response.status}`);
+                        continue; // 다음 URL로 시도
+                    }
+
+                    // JSON 데이터로 변환
+
+                    console.log(`(${index + 1}/${URLS_TO_TEST.length}) 가져온 데이터 (URL: ${url}): `, data);
+
+                    // 데이터 상태 업데이트
+                    setReportData((prevData) => ({
+                        ...prevData,
+                        ...data,
+                    }));
+                    dataFetched = true;
+                    break; // 데이터 성공적으로 가져왔으면 루프 중단
+                } catch (error) {
+                    console.error(`(${index + 1}/${URLS_TO_TEST.length}) fetchDashboardData 에러 (URL: ${url}): `, error);
+                }
+            }
+
+            if (!dataFetched) {
+                console.error("모든 URL에서 데이터를 가져오는 데 실패했습니다.");
             }
         };
 
         fetchDashboardData();
-    }, [])
+    }, []);
 
 
     return (
