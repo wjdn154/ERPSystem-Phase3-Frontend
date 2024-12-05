@@ -32,8 +32,9 @@ export default function DashboardPage({ initialData }) {
         }));
     }, [initialData]);
 
+    const S3_JSON_URL = 'http://omz-erp-dashboard-data-bucket.s3-website.ap-northeast-2.amazonaws.com/dashboard-latest.json';
     // const S3_JSON_URL = 'http://omz-erp-dashboard-data-bucket.s3-website.ap-northeast-2.amazonaws.com/dashboard-1월.json';
-    const S3_JSON_URL = 'https://https://d3rql2ncmdi6i.cloudfront.net/dashboard-1월.json'; // 클라우드프론트 도메인 사용 'dashboard-latest.json' 으로 파일명 고정
+    // const S3_JSON_URL = 'https://https://d3rql2ncmdi6i.cloudfront.net/dashboard-1월.json'; // 클라우드프론트 도메인 사용 'dashboard-latest.json' 으로 파일명 고정
     // const S3_JSON_URL = 'https://https://d3rql2ncmdi6i.cloudfront.net/dashboard-latest.json'; // 클라우드프론트 도메인 사용 'dashboard-latest.json' 으로 파일명 고정
 
 
