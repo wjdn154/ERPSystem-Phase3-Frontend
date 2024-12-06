@@ -7,8 +7,10 @@ import PrecisionManufacturingIcon from '@mui/icons-material/PrecisionManufacturi
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import GroupsIcon from '@mui/icons-material/Groups';
 import {Button} from "antd";
+import apiClient from "../../../../config/apiClient.jsx";
+import axios from "axios";
 
-export default function DashboardPage({ initialData }) {
+export default function DashboardPage() {
     const [reportData, setReportData] = useState({
         environmentalScore: {
             totalScore: 0,
@@ -20,17 +22,65 @@ export default function DashboardPage({ initialData }) {
         widgets: [],
     });
 
+    // useEffect(() => {
+    //     setReportData((prevData) => ({
+    //         ...prevData,
+    //         ...initialData,
+    //         environmentalScore: {
+    //             totalScore: initialData?.environmentalScore?.totalScore ?? prevData.environmentalScore.totalScore,
+    //             wasteScore: initialData?.environmentalScore?.wasteScore ?? prevData.environmentalScore.wasteScore,
+    //             energyScore: initialData?.environmentalScore?.energyScore ?? prevData.environmentalScore.energyScore,
+    //         },
+    //     }));
+    // }, [initialData]);
+
+    // 테스트할 URL 리스트
+    const URLS_TO_TEST = [
+        // CORS with preflight policy
+        'https://omz-erp.click/dashboard-latest.json',
+        'https://d3rql2ncmdi6i.cloudfront.net/dashboard-latest.json', // 클라우드프론트 경로 올 지정 테스트 CORS TypeError: Failed to fetch net::ERR_FAILED 200 (OK)
+    ];
+
     useEffect(() => {
-        setReportData((prevData) => ({
-            ...prevData,
-            ...initialData,
-            environmentalScore: {
-                totalScore: initialData?.environmentalScore?.totalScore ?? prevData.environmentalScore.totalScore,
-                wasteScore: initialData?.environmentalScore?.wasteScore ?? prevData.environmentalScore.wasteScore,
-                energyScore: initialData?.environmentalScore?.energyScore ?? prevData.environmentalScore.energyScore,
-            },
-        }));
-    }, [initialData]);
+        console.log(URLS_TO_TEST)
+        const fetchDashboardData = async () => {
+            let dataFetched = false;
+
+            for (const [index, url] of URLS_TO_TEST.entries()) { // index와 url 가져오기
+                try {
+                    console.info(`(${index + 1}/${URLS_TO_TEST.length}) 대시보드 데이터를 가져오는 중... URL: ${url}`);
+                    const response = await fetch(url);
+                    console.info(response);
+
+                    if (!response.ok) {
+                        console.error(`(${index + 1}/${URLS_TO_TEST.length}) HTTP error (URL: ${url}): ${response.status}`);
+                        continue; // 다음 URL로 시도
+                    }
+
+                    // JSON 데이터로 변환
+                    const data = await response.json(); // JSON 변환
+                    console.log(`(${index + 1}/${URLS_TO_TEST.length}) 가져온 데이터 (URL: ${url}): `, data);
+
+                    // 데이터 상태 업데이트
+                    setReportData((prevData) => ({
+                        ...prevData,
+                        ...data,
+                    }));
+                    dataFetched = true;
+                    break; // 데이터 성공적으로 가져왔으면 루프 중단
+                } catch (error) {
+                    console.error(`(${index + 1}/${URLS_TO_TEST.length}) fetchDashboardData 에러 (URL: ${url}): `, error);
+                }
+            }
+
+            if (!dataFetched) {
+                console.error("모든 URL에서 데이터를 가져오는 데 실패했습니다.");
+            }
+        };
+
+        fetchDashboardData();
+    }, []);
+
 
     return (
         <main className="flex-1 overflow-y-auto p-4">

@@ -24,7 +24,7 @@ export const menuItems = [
 export const subMenuItems = {
     '통합관리': [
         {
-            text: '대시보드', component: 'IntegrationDashboardPage', apiPath: COMMON_API.DASHBOARD_API, url: '/integration'
+            text: '대시보드', component: 'IntegrationDashboardPage', apiPath: undefined, url: '/integration'
         },
         {
             text: '기초정보관리',
