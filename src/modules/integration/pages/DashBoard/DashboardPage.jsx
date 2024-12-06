@@ -36,12 +36,9 @@ export default function DashboardPage() {
 
     // 테스트할 URL 리스트
     const URLS_TO_TEST = [
-        '/dashboard-latest.json',
-        'https://omz-erp.click/latest-dashboard', // 도메인과 연결된 클라우드프론트 경로 테스트 CORS TypeError: Failed to fetch net::ERR_FAILED 200 (OK)
-        'https://d3rql2ncmdi6i.cloudfront.net/latest-dashboard', // 클라우드프론트 도메인 테스트 404 (Not Found)   HTTP error
-        'https://d3rql2ncmdi6i.cloudfront.net/latest-dashboard/dashboard-latest.json', // 클라우드프론트 경로 올 지정 테스트 CORS TypeError: Failed to fetch
+        // CORS with preflight policy
+        'https://omz-erp.click/dashboard-latest.json',
         'https://d3rql2ncmdi6i.cloudfront.net/dashboard-latest.json', // 클라우드프론트 경로 올 지정 테스트 CORS TypeError: Failed to fetch net::ERR_FAILED 200 (OK)
-        'https://omz-erp-dashboard-data-bucket.s3.ap-northeast-2.amazonaws.com/dashboard-latest.json',
     ];
 
     useEffect(() => {
@@ -61,7 +58,7 @@ export default function DashboardPage() {
                     }
 
                     // JSON 데이터로 변환
-
+                    const data = await response.json(); // JSON 변환
                     console.log(`(${index + 1}/${URLS_TO_TEST.length}) 가져온 데이터 (URL: ${url}): `, data);
 
                     // 데이터 상태 업데이트
