@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 //     ? "https://omz-erp.click" // 운영 환경
 //     : "http://localhost:8080"; // 개발 환경
 
-export const API_BASE_URL = ''; // 로컬 개발 환경
+export const API_BASE_URL = 'http://localhost:8080'; // 로컬 개발 환경
 
 // 공통
 export const COMMON_API = {
