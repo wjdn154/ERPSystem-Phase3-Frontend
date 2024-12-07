@@ -7,8 +7,9 @@ const ProtectedRoute = ({ children, requiredPermission, permissionLevel }) => {
     const permission = useSelector(state => state.auth.permission);
     const isAdmin = useSelector(state => state.auth.isAdmin);
 
-    // 1. JWT 토큰이 없으면 로그인 페이지로 리디렉트
-    if (!token) {
+
+    // 인증이 필요한 페이지에서만 인증을 확인
+    if (!token && window.location.pathname !== "/company-selection") {
         return <Navigate to="/login" replace />;
     }
 

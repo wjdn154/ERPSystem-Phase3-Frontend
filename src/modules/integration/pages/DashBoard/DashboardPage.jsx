@@ -21,6 +21,7 @@ export default function DashboardPage({ initialData }) {
     });
 
     useEffect(() => {
+        // 초기 데이터 설정
         setReportData((prevData) => ({
             ...prevData,
             ...initialData,
@@ -30,6 +31,37 @@ export default function DashboardPage({ initialData }) {
                 energyScore: initialData?.environmentalScore?.energyScore ?? prevData.environmentalScore.energyScore,
             },
         }));
+
+        // handleSubscribe 함수 호출
+        const handleSubscribe = async () => {
+            const companyData = JSON.parse(localStorage.getItem("selectedCompany"));
+            console.log("localStorage selectedCompany:", localStorage.getItem("selectedCompany"));
+
+
+            if (!companyData || !companyData.companyId) {
+                console.error("선택된 회사 데이터가 없습니다.");
+                alert("회사를 선택해주세요.");
+                return;
+            }
+
+            const employeeId = companyData.employeeId || "defaultEmployeeId";
+            const tenantId = companyData.companyId || "defaultTenantId";
+            const module = "testModule";
+            const permission = "testPermission";
+
+            console.log("API 호출 데이터:", { employeeId, tenantId, module, permission });
+
+            try {
+                const response = await apiClient.get(
+                    `/api/notifications/subscribe?employeeId=${employeeId}&tenantId=${tenantId}&module=${module}&permission=${permission}`
+                );
+                console.log("응답:", response.data);
+            } catch (error) {
+                console.error("서버 오류 발생:", error.response || error.message);
+            }
+        };
+
+        handleSubscribe(); // 페이지 로드 시 API 호출
     }, [initialData]);
 
     return (

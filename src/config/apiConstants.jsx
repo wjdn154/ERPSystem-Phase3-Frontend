@@ -7,6 +7,7 @@ export const API_BASE_URL = process.env.NODE_ENV === 'production'
 
 // 공통
 export const COMMON_API = {
+    GOOGLE_LOGIN_API : `${API_BASE_URL}/api/hr/auth/google-login`,   //구글 로그인 API
     LOGIN_API: `${API_BASE_URL}/api/hr/auth/login`, // 로그인 API
     REFRESH_TOKEN_API: `${API_BASE_URL}/api/hr/auth/refresh-token`, // 토큰 갱신 API
     COMPANY_LIST_API: `${API_BASE_URL}/api/financial/company/`, // 회사 목록 조회 API

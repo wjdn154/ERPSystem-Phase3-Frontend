@@ -22,6 +22,8 @@ import { jwtDecode } from "jwt-decode";
 import UnauthorizedPage from "./modules/common/unauthorized/UnauthorizedPage.jsx";
 import {COMMON_API} from "./config/apiConstants.jsx";
 import apiClient from "./config/apiClient.jsx";
+import CompanySelection from "./modules/common/login/CompanySelection.jsx";
+import Callback from "./modules/common/login/Callback.jsx";
 
 const { Sider, Content } = Layout;
 const theme = createTheme(themeSettings);
@@ -33,13 +35,29 @@ const AppContent = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        // localStorage에서 JWT 토큰을 가져와 Redux 상태 초기화
+        const token = localStorage.getItem("idToken");
+        if (token) {
+            dispatch(setAuth({ token, isAdmin: false, permission: "user" }));
+        }
+
+        // Notification 설정
+        notification.config({
+            duration: 1,
+        });
+    }, [dispatch]);
+
 
     useEffect(() => {
-        if (location.state?.login) {
+        // localStorage에서 상태를 불러옵니다.
+        const loginState = JSON.parse(localStorage.getItem("loginState"));
+        if (loginState?.login) {
             notify('success', '로그인 성공', '환영합니다! 메인 페이지로 이동했습니다.', 'top');
-            navigate('/integration', { replace: true, state: {} });
+            navigate('/integration', { replace: true });
         }
-    }, [location.state, notify]);
+    }, [notify]);
+
 
 
     const renderRoutes = () => {
@@ -99,6 +117,8 @@ const AppContent = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="*" element={<Navigate to="/login" replace />} />
+                <Route path="/callback" element={<Callback />} /> {/* Google 로그인 콜백 */}
+                <Route path="/company-selection" element={<CompanySelection />} />
             </Routes>
         );
     }
@@ -109,6 +129,10 @@ const AppContent = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/unauthorized" element={<UnauthorizedPage />} />
+                <Route path="/company-selection" element={<CompanySelection />} />
+                <Route path="/callback" element={<Callback />} /> {/* Google 로그인 콜백 */}
+
+
                 {/* 로그인 후에는 메인 레이아웃으로 이동 */}
                 <Route
                     path="/*"
