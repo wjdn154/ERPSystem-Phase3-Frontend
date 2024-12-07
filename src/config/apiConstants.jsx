@@ -1,22 +1,23 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
 
-export const API_BASE_URL = process.env.NODE_ENV === 'production'
-    ? "https://omz-erp.click" // 운영 환경
-    : "http://localhost:8080"; // 개발 환경
+// export const API_BASE_URL = process.env.NODE_ENV === 'production'
+//     ? "https://omz-erp.click" // 운영 환경
+//     : "http://localhost:8080"; // 개발 환경
+
+export const API_BASE_URL = ''; // 로컬 개발 환경
 
 // 공통
 export const COMMON_API = {
-    GOOGLE_LOGIN_API : `${API_BASE_URL}/api/hr/auth/google-login`,   //구글 로그인 API
-    LOGIN_API: `${API_BASE_URL}/api/hr/auth/login`, // 로그인 API
-    REFRESH_TOKEN_API: `${API_BASE_URL}/api/hr/auth/refresh-token`, // 토큰 갱신 API
-    COMPANY_LIST_API: `${API_BASE_URL}/api/financial/company/`, // 회사 목록 조회 API
-    COMPANY_SEARCH_API: `${API_BASE_URL}/api/financial/company/search`, // 회사 검색 API
-    REGISTER_API: `${API_BASE_URL}/api/hr/auth/register`, // 회원가입 API
-    DASHBOARD_API: `${API_BASE_URL}/api/integrated/dashboard`, // 대시보드 조회 API
+    LOGIN_API: `${API_BASE_URL}/api/common/auth/login`, // 로그인 API
+    REFRESH_TOKEN_API: `${API_BASE_URL}/api/common/auth/refresh-token`, // 토큰 갱신 API
+    COMPANY_LIST_API: `${API_BASE_URL}/api/common/company/`, // 회사 목록 조회 API
+    COMPANY_SEARCH_API: `${API_BASE_URL}/api/common/company/search`, // 회사 검색 API
+    REGISTER_API: `${API_BASE_URL}/api/common/auth/register`, // 회원가입 API
+    DASHBOARD_API: `${API_BASE_URL}/api/common/dashboard`, // 대시보드 조회 API
     GET_USER_SUBSCRIPTION_INFO_API: (employeeId, isAdmin) => `${API_BASE_URL}/api/notifications/get-user-subscription-info?employeeId=${employeeId}&isAdmin=${isAdmin}`, // 사용자 구독 정보 조회 API
-    NOTIFICATION_SUBSCRIBE_API: (employeeId, tenantId, module, permission) => `${API_BASE_URL}/api/notifications/subscribe?employeeId=${employeeId}&tenantId=${tenantId}&module=${module}&permission=${permission}`, // 알림 구독 API
-    NOTIFICATION_UNSUBSCRIBE_API: `${API_BASE_URL}/api/notifications/unsubscribe`, // 알림 구독 취소 API
+    NOTIFICATION_SUBSCRIBE_API: (employeeId, tenantId, module, permission, uuid) => `${API_BASE_URL}/api/notifications/subscribe?employeeId=${employeeId}&tenantId=${tenantId}&module=${module}&permission=${permission}&uuid=${uuid}`, // 알림 구독 API
+    NOTIFICATION_UNSUBSCRIBE_API: (employeeId,uuid) => `${API_BASE_URL}/api/notifications/unsubscribe?employeeId=${employeeId}&uuid=${uuid}`, // 알림 구독 취소 API
     CREATE_NOTIFICATION_API: (employeeId, module, permission) => `${API_BASE_URL}/api/notifications/create-notification?employeeId=${employeeId}&module=${module}&permission=${permission}`, // 알림 생성 및 조회 API
     MARK_AS_READ_NOTIFICATION_API: (employeeId, notificationId) => `${API_BASE_URL}/api/notifications/mark-as-read?employeeId=${employeeId}&notificationId=${notificationId}`, // 알림 읽음 처리 API
 };
@@ -105,14 +106,14 @@ export const EMPLOYEE_API = {
     DELETE_EMPLOYEE_DATA_API:(id)=> `${API_BASE_URL}/api/hr/employee/del/${id}`,
 
     // 인사관리 - 사용자
-    USERS_PERMISSION_API: (username) => `${API_BASE_URL}/api/hr/users/permission/${username}`, // 사용자 권한 조회 API
-    UPDATE_USERS_PERMISSION_API: `${API_BASE_URL}/api/hr/users/permission/update`,
-    USERS_DATA_API: `${API_BASE_URL}/api/hr/users/all`,
+    USERS_PERMISSION_API: (username) => `${API_BASE_URL}/api/common/users/permission/${username}`, // 사용자 권한 조회 API
+    UPDATE_USERS_PERMISSION_API: `${API_BASE_URL}/api/common/users/permission/update`,
+    USERS_DATA_API: `${API_BASE_URL}/api/common/users/all`,
     EMPLOYEE_USER_DATA_API: `${API_BASE_URL}/api/hr/employee/user/all`, // ERP 사용자인 Employee 목록 조회 API
-    USERS_DATA_DETAIL_API: (id) => `${API_BASE_URL}/api/hr/users/${id}`,
-    SAVE_USERS_DATA_API: `${API_BASE_URL}/api/hr/users/create`,
-    UPDATE_USERS_DATA_API: (id)=> `${API_BASE_URL}/api/hr/users/put/${id}`,
-    DELETE_USERS_DATA_API: (id) =>`${API_BASE_URL}/api/hr/users/del/${id}`,
+    USERS_DATA_DETAIL_API: (id) => `${API_BASE_URL}/api/common/users/${id}`,
+    SAVE_USERS_DATA_API: `${API_BASE_URL}/api/common/users/create`,
+    UPDATE_USERS_DATA_API: (id)=> `${API_BASE_URL}/api/common/users/put/${id}`,
+    DELETE_USERS_DATA_API: (id) =>`${API_BASE_URL}/api/common/users/del/${id}`,
 
     // 인사관리 - 부서
     DEPARTMENT_DATA_API: `${API_BASE_URL}/api/hr/department/all`,

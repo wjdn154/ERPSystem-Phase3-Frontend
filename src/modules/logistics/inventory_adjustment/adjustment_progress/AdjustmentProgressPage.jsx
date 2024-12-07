@@ -51,7 +51,7 @@ const AdjustmentProgressPage = () => {
             const response = await apiClient.post(LOGISTICS_API.INVENTORY_INSPECTION_LIST_API(startDate, endDate));
             const { shipmentProductListResponseDTOList, totalQuantity } = response.data;
 
-            setShipmentProductsData(shipmentProductListResponseDTOList); // 목록 데이터 설정
+            setAdjustmentProgressData(response.data); // 목록 데이터 설정
             setTotalQuantity(totalQuantity); // 총 수량 설정
             notify('success', '데이터 조회 성공', '재고조정진행단계 데이터를 성공적으로 조회했습니다.', 'bottomRight');
         } catch (error) {
