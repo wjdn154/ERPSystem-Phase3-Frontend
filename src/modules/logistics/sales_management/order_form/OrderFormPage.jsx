@@ -540,7 +540,7 @@ const OrderFormPage = ({initialData}) => {
             updateField('supplyPrice', supplyPrice, index)
             updateField('vat', vat, index)
 
-            setQuotationDetails(orderParam);
+            setOrdersDetails(orderParam);
 
         } catch (error) {
             console.error("부가세 계산 중 오류 발생:", error);

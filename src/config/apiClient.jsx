@@ -16,6 +16,10 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use((config) => {
     const token = Cookies.get('jwt');
 
+    if (!config.data) {
+        config.data = {}; // 빈 JSON 객체 추가
+    }
+
     if (config.url === COMMON_API.COMPANY_LIST_API || config.url === COMMON_API.COMPANY_SEARCH_API ||
         config.url === COMMON_API.LOGIN_API || config.url === COMMON_API.REGISTER_API ||
         config.url === COMMON_API.REFRESH_TOKEN_API || COMMON_API.GOOGLE_LOGIN_API) {
