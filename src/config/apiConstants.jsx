@@ -9,6 +9,7 @@ export const API_BASE_URL = ''; // 로컬 개발 환경
 
 // 공통
 export const COMMON_API = {
+    GOOGLE_LOGIN_API: `${API_BASE_URL}/api/common/auth/google-login`,
     LOGIN_API: `${API_BASE_URL}/api/common/auth/login`, // 로그인 API
     REFRESH_TOKEN_API: `${API_BASE_URL}/api/common/auth/refresh-token`, // 토큰 갱신 API
     COMPANY_LIST_API: `${API_BASE_URL}/api/common/company/`, // 회사 목록 조회 API
