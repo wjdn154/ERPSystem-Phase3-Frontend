@@ -9,6 +9,7 @@ const initialAuthState = {
     isAdmin: false,
     permission: {},
     companyId: null,
+    userEmail: null,
 };
 
 const authSlice = createSlice({
@@ -29,6 +30,7 @@ const authSlice = createSlice({
                     const decodedToken = jwtDecode(token);
                     state.userNickname = decodedToken.userNickname;
                     state.companyId = decodedToken.companyId;
+                    state.useremail = decodedToken.useremail;
                 } catch (error) {
                     state.token = null;
                     state.userNickname = null;
@@ -42,6 +44,7 @@ const authSlice = createSlice({
             state.isAdmin = false;
             state.permission = null;
             state.companyId = null;
+            state.useremail = null;
         },
     },
 });

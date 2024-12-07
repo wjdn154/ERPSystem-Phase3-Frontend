@@ -101,17 +101,20 @@ const LoginPage = () => {
     // Google 로그인 URL 생성
     const handleGoogleLogin = () => {
         console.log('Google 로그인 버튼 클릭됨');
-        const domain = "ap-northeast-2dwcymwq0b.auth.ap-northeast-2.amazoncognito.com";
-        const clientId = "7aftsthsr58mjtcjk7tp00to1l";
-        const redirectUri = "http://localhost:3000/callback";
-        const responseType = "code";
-        const scope = "email openid profile";
+        const googleOAuthEndpoint = "https://accounts.google.com/o/oauth2/v2/auth"; // Google OAuth 엔드포인트
+        const clientId = "189901934577-ir0en4b9eqe4j6ehb6imcou61t2ec9mn.apps.googleusercontent.com"; // Google Client ID
+        const redirectUri = "http://localhost:3000/callback"; // Google OAuth Redirect URI
+        const responseType = "code"; // Authorization Code Flow
+        const scope = "email openid profile"; // 요청할 정보 범위
 
+        // Google OAuth URL 생성
         const googleLoginUrl = `
-        https://${domain}/oauth2/authorize?client_id=${clientId}&response_type=${responseType}&scope=${scope}&redirect_uri=${encodeURIComponent(
-            redirectUri
-        )}
-        `;
+        ${googleOAuthEndpoint}?client_id=${clientId}&response_type=${responseType}&scope=${encodeURIComponent(
+            scope
+        )}&redirect_uri=${encodeURIComponent(redirectUri)}
+    `;
+
+
 
         console.log('Google 로그인 URL:', googleLoginUrl);
         window.location.href = googleLoginUrl;

@@ -18,7 +18,7 @@ apiClient.interceptors.request.use((config) => {
 
     if (config.url === COMMON_API.COMPANY_LIST_API || config.url === COMMON_API.COMPANY_SEARCH_API ||
         config.url === COMMON_API.LOGIN_API || config.url === COMMON_API.REGISTER_API ||
-        config.url === COMMON_API.REFRESH_TOKEN_API) {
+        config.url === COMMON_API.REFRESH_TOKEN_API || COMMON_API.GOOGLE_LOGIN_API) {
         return config; // 토큰 없이 요청 진행
     }
 
