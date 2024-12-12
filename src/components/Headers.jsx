@@ -139,6 +139,7 @@ function Headers() {
                                 return;
                             }
 
+                            console.log("response.data.module : ", response.data.module);
                             eventSourceRef.current = new EventSource(COMMON_API.NOTIFICATION_SUBSCRIBE_API(
                                 decodedToken.employeeId,
                                 decodedToken["X-Tenant-ID"],
